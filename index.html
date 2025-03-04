@@ -149,21 +149,21 @@
                 passwordSection.style.display = "none";
                 wrongPasswordMessage.style.display = "none";
 
-                // 保存一個會話標記，這樣刷新頁面不需要再次輸入密碼
-                // 注意：這只是簡單的實現，不是真正的安全措施
-                sessionStorage.setItem("authenticated", "true");
+                // 不保存任何會話標記，確保每次訪問都需要輸入密碼
             } else {
                 // 密碼錯誤，顯示錯誤信息
                 wrongPasswordMessage.style.display = "block";
             }
         }
 
-        // 檢查是否已經通過認證
+        // 移除會話檢查，確保每次訪問都需要輸入密碼
         window.onload = function() {
-            if (sessionStorage.getItem("authenticated") === "true") {
-                document.getElementById("loveLetter").style.display = "block";
-                document.getElementById("passwordSection").style.display = "none";
-            }
+            // 清除任何可能存在的會話存儲
+            sessionStorage.removeItem("authenticated");
+
+            // 確保密碼區域顯示，情書區域隱藏
+            document.getElementById("loveLetter").style.display = "none";
+            document.getElementById("passwordSection").style.display = "block";
         }
     </script>
 </body>
