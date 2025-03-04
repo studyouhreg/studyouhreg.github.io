@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的情書</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background-color: #f7e6e6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: linear-gradient(to right, #ffafbd, #ffc3a0);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #e75480;
+            margin-bottom: 20px;
+        }
+
+        .password-section {
+            margin-bottom: 25px;
+        }
+
+        input {
+            padding: 12px;
+            width: 80%;
+            margin: 10px 0;
+            border: 1px solid #e75480;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #e75480;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #d44071;
+        }
+
+        .love-letter {
+            display: none;
+            text-align: left;
+            line-height: 1.6;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .love-letter p {
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            color: #e75480;
+            font-size: 24px;
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        .wrong-password {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .decoration {
+            font-size: 24px;
+            color: #e75480;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💌 我的情書 💌</h1>
+
+        <div class="password-section" id="passwordSection">
+            <p>這是一封私密的情書，請輸入密碼查看：</p>
+            <input type="password" id="passwordInput" placeholder="請輸入密碼...">
+            <div class="wrong-password" id="wrongPassword">密碼錯誤，請重試！</div>
+            <br>
+            <button onclick="checkPassword()">解鎖我的心意</button>
+        </div>
+
+        <div class="love-letter" id="loveLetter">
+            <div class="decoration">♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥</div>
+
+            <p>親愛的，</p>
+
+            <p>當我寫下這些文字時，我的心跳加速，思緒翻騰。或許我不曾告訴你，但每當我們相遇的時刻，世界彷彿只剩下你和我。</p>
+
+            <p>記得我們第一次相遇嗎？那個瞬間，時間彷彿停止了流動。你的笑容如春風般溫柔，瞬間融化了我的心。從那一刻起，我知道你是特別的。</p>
+
+            <p>每一次與你共處的時光都彷彿珍貴的寶藏，我小心翼翼地收藏在心底最柔軟的地方。你的聲音是我最喜愛的旋律，你的笑容是我最想見的風景。</p>
+
+            <p>我喜歡你思考時微皺的眉頭，喜歡你專注時閃爍的眼神，喜歡你開懷大笑時的模樣，更喜歡你在我身邊時那份自在與真實。</p>
+
+            <p>或許我不善言辭，無法用最動人的詞藻表達我的心意。但請相信，我對你的感情如星辰般恆久，如海洋般深邃。</p>
+
+            <p>謝謝你走進我的生命，讓平凡的日子因你而閃耀。</p>
+
+            <p class="heart">❤️ ❤️ ❤️</p>
+
+            <p class="signature">永遠愛你的我</p>
+
+            <div class="decoration">♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥</div>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            // 設定密碼 - 你可以修改這裡的密碼
+            const correctPassword = "iloveyou";
+
+            const enteredPassword = document.getElementById("passwordInput").value;
+            const letterSection = document.getElementById("loveLetter");
+            const passwordSection = document.getElementById("passwordSection");
+            const wrongPasswordMessage = document.getElementById("wrongPassword");
+
+            if (enteredPassword === correctPassword) {
+                // 密碼正確，顯示情書
+                letterSection.style.display = "block";
+                passwordSection.style.display = "none";
+                wrongPasswordMessage.style.display = "none";
+
+                // 保存一個會話標記，這樣刷新頁面不需要再次輸入密碼
+                // 注意：這只是簡單的實現，不是真正的安全措施
+                sessionStorage.setItem("authenticated", "true");
+            } else {
+                // 密碼錯誤，顯示錯誤信息
+                wrongPasswordMessage.style.display = "block";
+            }
+        }
+
+        // 檢查是否已經通過認證
+        window.onload = function() {
+            if (sessionStorage.getItem("authenticated") === "true") {
+                document.getElementById("loveLetter").style.display = "block";
+                document.getElementById("passwordSection").style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
